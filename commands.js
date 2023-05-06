@@ -32,7 +32,7 @@ const questions = [
     },
 ];
 
-program.version("1.0.0").alias("v").description("Client Management System");
+program.version("1.0.0").alias("v").description("ASCOL DATA MANAGEMENT SYSTEM");
 program.help(`
 Function                  Alias        Description
 version                   v            To check the version of the customer-cli
@@ -42,13 +42,6 @@ client-cli update [_ID]   u            To update details for specific customes i
 client-cli remove [_ID]   r            To remove details for specific customes in the database
 client-cli find [NAME]    f            To find a specific customes in the database
 `);
-// program
-//   .command('add <firstname> <lastname> <phone> <email>')
-//   .alias('a')
-//   .description('Add a customer')
-//   .action((firstname, lastname, phone, email) => {
-//     addCustomer({firstname, lastname, phone, email});
-//   });
 
 // Add Command
 program
