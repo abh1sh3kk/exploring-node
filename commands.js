@@ -1,83 +1,95 @@
-const program = require("commander");
+const { program } = require("commander");
 const { prompt } = require("inquirer");
-const {
-    addCustomer,
-    findCustomer,
-    updateCustomer,
-    removeCustomer,
-    listCustomers,
-} = require("./index");
 
-// Customer Questions
+// ------------------------------------------------------------
+
+const {
+    addStudent,
+    findStudent,
+    updateStudent,
+    removeStudent,
+    listStudents,
+} = require("./studentActions");
+
+// ------------------------------------------------------------
+
 const questions = [
     {
         type: "input",
         name: "firstname",
-        message: "Customer First Name",
+        message: "Student First Name",
     },
     {
         type: "input",
         name: "lastname",
-        message: "Customer Last Name",
+        message: "Student Last Name",
     },
     {
         type: "input",
         name: "phone",
-        message: "Customer Phone Number",
+        message: "Student Phone Number",
     },
     {
         type: "input",
         name: "email",
-        message: "Customer Email Address",
+        message: "Student Email Address",
     },
 ];
 
+// ------------------------------------------------------------
+
 program.version("1.0.0").alias("v").description("ASCOL DATA MANAGEMENT SYSTEM");
-program.help(`
-Function                  Alias        Description
-version                   v            To check the version of the customer-cli
-client-cli add            a            To add new customes in the database
-client-cli list           l            To check all the customes in the database
-client-cli update [_ID]   u            To update details for specific customes in the database
-client-cli remove [_ID]   r            To remove details for specific customes in the database
-client-cli find [NAME]    f            To find a specific customes in the database
-`);
+// Says Hi
+program
+    .command("hi")
+    .alias("h")
+    .description("Just says Hi")
+    .action(() => console.log("Hi I am working"));
+
+// ------------------------------------------------------------
 
 // Add Command
 program
     .command("add")
     .alias("a")
-    .description("Add a customer")
+    .description("Add a student")
     .action(() => {
-        prompt(questions).then((answers) => addCustomer(answers));
+        prompt(questions).then((answers) => addStudent(answers));
     });
-
+// _____________________________
 // Find Command
 program
     .command("find <name>")
     .alias("f")
-    .description("Find a customer")
-    .action((name) => findCustomer(name));
+    .description("Find a student")
+    .action((name) => findStudent(name));
 
+// _____________________________
 // Update Command
 program
     .command("update <_id>")
     .alias("u")
-    .description("Update a customer")
+    .description("Update a student")
     .action((_id) => {
-        prompt(questions).then((answers) => updateCustomer(_id, answers));
+        prompt(questions).then((answers) => updateStudent(_id, answers));
     });
 
+// _____________________________
 // Remove Command
 program
     .command("remove <_id>")
     .alias("r")
-    .description("Remove a customer")
-    .action((_id) => removeCustomer(_id));
+    .description("Remove a student")
+    .action((_id) => removeStudent(_id));
 
+// _____________________________
 // List Command
 program
     .command("list")
     .alias("l")
-    .description("List all customers")
-    .action(() => listCustomers());
+    .description("List all students")
+    .action(() => listStudents());
+
+// ------------------------------------------------------------
+
+program.parse(process.argv);
