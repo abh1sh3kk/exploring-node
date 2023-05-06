@@ -1,19 +1,21 @@
 {
-  "name": "customer-cli",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "preferGlobal": true,
-  "bin": "./index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "commander": "^10.0.1",
-    "inquirer": "^8.0.0",
-    "mongoose": "^7.1.0"
-  }
+    "name": "ascol-data",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./bin/index.js",
+    "preferGlobal": true,
+    "bin": {
+        "ascol": "./bin/index.js"
+    },
+    "scripts": {
+        "start": "node ./bin/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "commander": "^10.0.1",
+        "inquirer": "^8.0.0",
+        "mongoose": "^7.1.0"
+    }
 }
