@@ -1,81 +1,90 @@
-const { version, command, parse } = require("commander");
 const program = require("commander");
-// const { prompt } = require('inquirer');
-import { prompt } from "inquirer";
+const { prompt } = require("inquirer");
 const {
     addCustomer,
     findCustomer,
-    removeCustomer,
     updateCustomer,
-    listCustomer,
-} = require('./index.js"');
+    removeCustomer,
+    listCustomers,
+} = require("./index");
 
-version("1.0.0").description("Customer Management System");
-
+// Customer Questions
 const questions = [
     {
         type: "input",
         name: "firstname",
-        message: "Enter the first name",
+        message: "Customer First Name",
     },
     {
         type: "input",
         name: "lastname",
-        message: "Enter the last name",
+        message: "Customer Last Name",
     },
     {
         type: "input",
         name: "phone",
-        message: "Enter the phone number",
+        message: "Customer Phone Number",
     },
     {
         type: "input",
         name: "email",
-        message: "Enter the email",
+        message: "Customer Email Address",
     },
 ];
 
+program.version("1.0.0").alias("v").description("Client Management System");
+program.help(`
+Function                  Alias        Description
+version                   v            To check the version of the customer-cli
+client-cli add            a            To add new customes in the database
+client-cli list           l            To check all the customes in the database
+client-cli update [_ID]   u            To update details for specific customes in the database
+client-cli remove [_ID]   r            To remove details for specific customes in the database
+client-cli find [NAME]    f            To find a specific customes in the database
+`);
 // program
-//     .command("add <firstname> <lastname> <phone> <email>")
-//     .alias("a")
-//     .description("Add a customer")
-//     .action((firstname, lastname, phone, email) => {
-//         addCustomer({ firstname, lastname, phone, email });
-//     });
+//   .command('add <firstname> <lastname> <phone> <email>')
+//   .alias('a')
+//   .description('Add a customer')
+//   .action((firstname, lastname, phone, email) => {
+//     addCustomer({firstname, lastname, phone, email});
+//   });
 
-command("add")
+// Add Command
+program
+    .command("add")
     .alias("a")
     .description("Add a customer")
     .action(() => {
         prompt(questions).then((answers) => addCustomer(answers));
     });
 
-command("find <name>")
+// Find Command
+program
+    .command("find <name>")
     .alias("f")
-    .description("Find a Customer")
-    .action((name) => {
-        findCustomer(name);
+    .description("Find a customer")
+    .action((name) => findCustomer(name));
+
+// Update Command
+program
+    .command("update <_id>")
+    .alias("u")
+    .description("Update a customer")
+    .action((_id) => {
+        prompt(questions).then((answers) => updateCustomer(_id, answers));
     });
 
-command("list")
+// Remove Command
+program
+    .command("remove <_id>")
+    .alias("r")
+    .description("Remove a customer")
+    .action((_id) => removeCustomer(_id));
+
+// List Command
+program
+    .command("list")
     .alias("l")
     .description("List all customers")
-    .action(() => {
-        listCustomer();
-    });
-
-command("remove")
-    .alias("rm")
-    .description("Delete customer by id")
-    .action((_id) => {
-        removeCustomer(_id);
-    });
-
-command("update <_id>")
-    .description("Update customer by using Id")
-    .action((_id) => {
-        prompt(questions).then((answers) => {
-            updateCustomer(_id, answers);
-        });
-    });
-parse(process.argv);
+    .action(() => listCustomers());
